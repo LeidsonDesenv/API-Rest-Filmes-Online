@@ -14,7 +14,9 @@ class DirectorController extends Controller
     
     public function allDirectors(){
          $director =  $this->director->all();        
-        return response()->json($director);
+         //comentando para teste
+        //return response()->json($director);
+         return $director;
     }
     
     public function searchById($id){

@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Serie;
+use App\Director;
+use App\Category;
 
 class SerieController extends Controller
 {
     protected $serie;
+    protected $director;
+    protected $category;
     
     public function __construct() {
         $this->serie = new Serie;
+        $this->director = new Director;
+        $this->category = new Category;
+        
     }
     public function allSeries(){
         $series = DB::table('series')
@@ -30,6 +37,36 @@ class SerieController extends Controller
                ->select('series.*', 'directors.name as director', 'categories.category')
                ->get();
         return response()->json($series);
+    }
+    
+    public function searchByName($name){
+         $result = DB::table('series')
+               ->where('series.name', 'like', '%'.$name.'%')
+               ->join('categories', 'series.category_id', '=' ,'categories.id')
+               ->join('directors', 'series.director_id', '=' , 'directors.id')
+               ->select('series.*', 'directors.name as director', 'categories.category')               
+               ->get();
+         
+         if(!$result){
+            return response()->json([ 'message' => 'Item não encontrado'], 404);
+        }
+         return response()->json($result);
+    }
+    
+    public function searchByDirector($id){                        
+        $movies =  $this->director->find($id)->series;    
+        if(!$movies){
+            return response()->json(['message' => 'Itens não encontrados'], 404);
+        }
+        return response()->json($movies);
+    }
+    
+    public  function searchByCategory($id){
+        $movies = $this->category->find($id)->series;
+        if(!$movies){
+            return response()->json(['message' => 'Itens não encontrados'], 404);
+        }
+        return response()->json($movies);
     }
     
     public function create(Request $request){

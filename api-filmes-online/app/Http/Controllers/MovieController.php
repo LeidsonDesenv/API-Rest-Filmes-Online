@@ -5,12 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Movie;
+use App\Director;
+use App\Category;
+
+//vo usar esse Controller para testar, já que todos os outros são parecidos não haverá problema
+//estou conseguindo testar  e usar todos métods de todos os controllers no Postman 
+//porem no Laravel ao receber os response()->json($value)
+// não estou conseguindo consultar os dados na view
+//nesse controller vo usar o retorno normal do Laravel para poder testar
 
 class MovieController extends Controller
 {
     protected $movie;
+    protected $director;
+    protected $category;
     public function __construct() {
         $this->movie = new Movie;
+        $this->director = new Director;
+        $this->category = new Category;
     }
     public function allMovies(){               
        $movies = DB::table('movies')
@@ -18,7 +30,12 @@ class MovieController extends Controller
                ->join('directors', 'movies.director_id', '=' , 'directors.id')
                ->select('movies.*', 'directors.name as director', 'categories.category')
                ->get();
-        return response()->json($movies);
+       //vo comentar o retorno para usar de forma mais fácil na view
+        //return response()->json($movies);
+       //apenas para teste
+       return $movies;
+       
+       
     }
     
     public function searchById($id){
@@ -32,7 +49,8 @@ class MovieController extends Controller
          if(!$movies){
              return response()->json(['message' => 'Filme não encontrado'], 404);
          }
-         return response()->json($movies);
+         //return response()->json($movies);
+         return $movies;
     }
     
     public function searchByName($name){
@@ -46,9 +64,31 @@ class MovieController extends Controller
          if(!$movies){
             return response()->json([ 'message' => 'Item não encontrado'], 404);
         }
-         return response()->json($movies);
+         //return response()->json($movies);
+        return $movies;
     }
     
+    public function searchByDirector($id){                        
+        $movies =  $this->director->find($id)->movies;    
+        if(!$movies){
+            return response()->json(['message' => 'Itens não encontrados'], 404);
+        }
+       // return response()->json($movies);
+        return $movies;
+    }
+    
+    public  function searchByCategory($id){        
+        $movies = $this->category->find($id)->movies;
+        if(!$movies){
+            return response()->json(['message' => 'Itens não encontrados'], 404);
+        }
+        //return response()->json($movies);
+        return $movies;
+    }
+
+
+
+
     public function create(Request $request){
        $result = $this->movie->create(['name' => $request->name ,
                             'release_year' => $request->year ,

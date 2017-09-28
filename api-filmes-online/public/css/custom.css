@@ -1,0 +1,19 @@
+.product-img{
+    max-height: 200px;
+}
+
+.product-title{    
+    text-align: center;
+}
+
+.description{
+    text-align: center;
+}
+
+.price{
+    font-weight: bold;
+}
+
+
+
+

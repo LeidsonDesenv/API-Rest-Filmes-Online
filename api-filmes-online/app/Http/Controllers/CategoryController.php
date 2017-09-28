@@ -10,11 +10,13 @@ class CategoryController extends Controller
     protected $category;
     public function __construct() {
         $this->category = new Category;
-       // $this->middleware('auth', ['except' => ['allCategories' , 'searchById'] ]);
+       
     }
     public function allCategories(){
-         $categories =  $this->category->all();        
-        return response()->json($categories);
+         $categories =  $this->category->all();  
+         //comentando para teste
+        //return response()->json($categories);
+         return $categories;
     }
     
     public function searchById($id){
@@ -23,11 +25,8 @@ class CategoryController extends Controller
             return response()->json(['message' => 'Item não encontrado'], 404);
         }
         return response()->json($category);
-    }
+    }    
     
-    public function searchByName($name_chunk){
-        return "Pesquisou por ". $name_chunk;
-    }
     
     public function create(Request $request){
         $result = $this->category->create([

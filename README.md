@@ -16,6 +16,12 @@ Os controllers Movie e Serie tem também os métodos que buscam por director e p
 
 <p>Para facilitar a etapa de teste todas as tabelas têm Seeders com seu respectivo nome bastando apenas fazer o migrate para gerar a tabela e depois o db:seed para incluir os registros nas tabelas.</p>
 
+<p>Para testar eu modifiquei o MovieController que tem todos os métodos, essa modificação foi só para teste mesmo, porque não estava conseguindo converter o resonse::json para usar na view, tentei json_decode como achei no stackoverflow, mesmo assim não deu certo, agora o controller retornar a informação pura e consigo testar nas views que criei e com o controller de teste que adicionei nessa ultima modificação. </p>
+
+<p>Foram incluidas 3 view uma para consulta, uma para cadastro e edição de filmes e uma para exclusão, tudas usando bootstrap para causar uma boa sensação aos olhos.</p>
+
 <h3>Autenticação </h3>
 
 <p>Estou aprendendo a usar o Passport, mas por hora estou usando o auth normal, mas pretendo atualizar o projeto assim que entender como o Passport funciona.</p>
+
+<p>Ainda não inclui o Passport, porque pelo que entendi incorpora funcionalidades do framework vue.js que sei menos que o básico, vo continuar estudando pra poder incluir em um futuro commit.</p>

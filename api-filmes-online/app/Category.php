@@ -8,8 +8,13 @@ class Category extends Model
 {
     protected $fillable = ['category', 'description' ];
     
+     public function movies(){
+        return Category::hasMany('App\Movie');
+    }
     
-    
+    public function series(){
+        return Category::hasMany('App\Serie');
+    }
     
     
     

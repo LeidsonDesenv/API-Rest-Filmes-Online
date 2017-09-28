@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/api-filmes-online/app/Category.php</file>
-            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/api-filmes-online/routes/web.php</file>
-            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/api-filmes-online/app/Http/Controllers/CategoryController.php</file>
-            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/api-filmes-online/routes/api.php</file>
+            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/API-Rest-Filmes-Online/api-filmes-online/resources/views/movies.blade.php</file>
+            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/API-Rest-Filmes-Online/api-filmes-online/app/Http/Controllers/Teste/UseMovieController.php</file>
+            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/API-Rest-Filmes-Online/api-filmes-online/routes/web.php</file>
+            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/API-Rest-Filmes-Online/api-filmes-online/app/Movie.php</file>
+            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/API-Rest-Filmes-Online/api-filmes-online/resources/views/delete.blade.php</file>
+            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/API-Rest-Filmes-Online/api-filmes-online/resources/views/index.blade.php</file>
+            <file>file:/D:/projetos%20Java/API%20Rest%20Filmes/API-Rest-Filmes-Online/api-filmes-online/app/Http/Controllers/MovieController.php</file>
         </group>
     </open-files>
 </project-private>
