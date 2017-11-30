@@ -49,8 +49,8 @@ class MovieController extends Controller
          if(!$movies){
              return response()->json(['message' => 'Filme não encontrado'], 404);
          }
-         //return response()->json($movies);
-         return $movies;
+         return response()->json(["movie" => $movies],200);
+         //return $movies;
     }
 
     public function searchByName($name){
@@ -93,12 +93,12 @@ class MovieController extends Controller
        $this->validate($request, $this->movie->rules);
 
        $result = $this->movie->create(['name' => $request->name ,
-                            'release_year' => $request->year ,
+                            'release_year' => $request->release_year ,
                             'star_list' => $request->star_list ,
                             'classId' => $request->classId,
                             'category_id' => $request->category_id,
                             'director_id' => $request->director_id]);
-        return response()->json($result ,201);
+        return response()->json(["movie" => $result ] ,201);
     }
 
     public function update(Request $request, $id){

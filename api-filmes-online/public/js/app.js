@@ -42753,7 +42753,7 @@ exports = module.exports = __webpack_require__(41)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -43250,6 +43250,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43261,7 +43319,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         star_list: '',
         classId: '',
         director: '',
-        category: ''
+        director_id: '',
+        category: '',
+        category_id: ''
       },
       director: {
         id: '',
@@ -43275,7 +43335,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       },
       movies: [],
       directors: [],
-      categories: []
+      categories: [],
+      movie_for_update: {}
     };
   },
   mounted: function mounted() {
@@ -43309,17 +43370,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     registerNewMovie: function registerNewMovie() {
       var _this4 = this;
 
-      axios.post('/movie', {
-        name: movie.name,
-        release_year: movie.release_year,
-        star_list: movie.star_list,
-        classId: movie.classId,
-        director: movie.director,
-        category: movie.category
-      }).then(function (response) {
-
+      var vm = this;
+      var movie = vm.movie;
+      axios.post('/movies', movie).then(function (response) {
         _this4.movies.push(response.data.movie);
       });
+    },
+    editModal: function editModal(index) {
+      this.movie_for_update = this.movies[index];
+      $("#editform").modal("show");
+    },
+    updateMovie: function updateMovie(id) {
+      var vm = this;
+      var updatemovie = vm.movie_for_update;
+      axios.put('/movies/' + id, updatemovie).then(function (response) {
+        alert("Dados Atualizados com sucesso");
+        $("#editform").modal("hide");
+      });
+    },
+    delMovie: function delMovie(index, id) {
+      var _this5 = this;
+
+      if (confirm("Deseja mesmo deletar ?")) {
+        axios.delete('/movies/' + id).then(function (response) {
+          alert("Filme deletado com sucesso!");
+          _this5.movies.splice(index, 1);
+        });
+      } else {
+        return false;
+      }
     }
   }
 });
@@ -43348,56 +43427,237 @@ var render = function() {
         [
           _c("h3", [_vm._v("Novo Filme")]),
           _vm._v(" "),
-          _c("form", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Filme:")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", name: "", value: "" }
-            }),
-            _vm._v(" "),
-            _c("label", [_vm._v("Diretor:")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              { staticClass: "form-control", attrs: { name: "" } },
-              _vm._l(_vm.directors, function(director) {
-                return _c("option", { domProps: { value: director.id } }, [
-                  _vm._v(" " + _vm._s(director.name) + " ")
-                ])
-              })
-            ),
-            _vm._v(" "),
-            _c("label", [_vm._v("Ano de Lançamento:")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", name: "", value: "" }
-            }),
-            _vm._v(" "),
-            _c("label", [_vm._v("Elenco:")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", name: "", value: "" }
-            }),
-            _vm._v(" "),
-            _c("label", [_vm._v("Classificação Indicativa:")]),
-            _vm._v(" "),
-            _vm._m(0, false, false),
-            _vm._v(" "),
-            _c("label", [_vm._v("Categoria:")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              { staticClass: "form-control", attrs: { name: "" } },
-              _vm._l(_vm.categories, function(category) {
-                return _c("option", { domProps: { value: category.id } }, [
-                  _vm._v(" " + _vm._s(category.category) + " ")
-                ])
-              })
-            )
-          ]),
+          _c(
+            "form",
+            {
+              staticClass: "form-group",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  _vm.registerNewMovie()
+                }
+              }
+            },
+            [
+              _c("label", [_vm._v("Filme:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.movie.name,
+                    expression: "movie.name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", name: "name", value: "" },
+                domProps: { value: _vm.movie.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.movie, "name", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", [_vm._v("Diretor:")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.movie.director_id,
+                      expression: "movie.director_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "director" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.movie,
+                        "director_id",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                _vm._l(_vm.directors, function(director) {
+                  return _c("option", { domProps: { value: director.id } }, [
+                    _vm._v(" " + _vm._s(director.name) + " ")
+                  ])
+                })
+              ),
+              _vm._v(" "),
+              _c("label", [_vm._v("Ano de Lançamento:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.movie.release_year,
+                    expression: "movie.release_year"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", name: "release_year" },
+                domProps: { value: _vm.movie.release_year },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.movie, "release_year", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", [_vm._v("Elenco:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.movie.star_list,
+                    expression: "movie.star_list"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", name: "star_list" },
+                domProps: { value: _vm.movie.star_list },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.movie, "star_list", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", [_vm._v("Classificação Indicativa:")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.movie.classId,
+                      expression: "movie.classId"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "classId" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.movie,
+                        "classId",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "Livre" } }, [
+                    _vm._v("Livre ")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10 ")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "12" } }, [_vm._v("12 ")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "14" } }, [_vm._v("14 ")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "16" } }, [_vm._v("16 ")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "18" } }, [_vm._v("18 ")])
+                ]
+              ),
+              _vm._v(" "),
+              _c("label", [_vm._v("Categoria:")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.movie.category_id,
+                      expression: "movie.category_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "category" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.movie,
+                        "category_id",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                _vm._l(_vm.categories, function(category) {
+                  return _c("option", { domProps: { value: category.id } }, [
+                    _vm._v(" " + _vm._s(category.category) + " ")
+                  ])
+                })
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  staticStyle: { "margin-top": "5px" },
+                  attrs: { type: "submit", name: "cadastrar" }
+                },
+                [_vm._v("Cadastrar")]
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
             "h1",
@@ -43414,7 +43674,7 @@ var render = function() {
           _vm.movies
             ? _c(
                 "div",
-                _vm._l(_vm.movies, function(movie) {
+                _vm._l(_vm.movies, function(movie, index) {
                   return _c(
                     "div",
                     {
@@ -43459,7 +43719,38 @@ var render = function() {
                             " "
                         ),
                         _c("br")
-                      ])
+                      ]),
+                      _c("div", { staticClass: "pull-right btn btn-group" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-warning",
+                            attrs: { type: "button", name: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.editModal(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Editar")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.delMovie(index, movie.id)
+                              }
+                            }
+                          },
+                          [_vm._v("Deletar")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p")
                     ]
                   )
                 })
@@ -43467,7 +43758,279 @@ var render = function() {
             : _vm._e()
         ]
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: { tabindex: "-1", role: "dialog", id: "editform" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0, false, false),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("form", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Filme:")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.movie_for_update.name,
+                        expression: "movie_for_update.name"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.movie_for_update.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.movie_for_update,
+                          "name",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", [_vm._v("Diretor:")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.movie_for_update.director_id,
+                          expression: "movie_for_update.director_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { name: "director" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.movie_for_update,
+                            "director_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    _vm._l(_vm.directors, function(director) {
+                      return _c(
+                        "option",
+                        { domProps: { value: director.id } },
+                        [_vm._v(" " + _vm._s(director.name) + " ")]
+                      )
+                    })
+                  ),
+                  _vm._v(" "),
+                  _c("label", [_vm._v("Ano de Lançamento:")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.movie_for_update.release_year,
+                        expression: "movie_for_update.release_year"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "release_year" },
+                    domProps: { value: _vm.movie_for_update.release_year },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.movie_for_update,
+                          "release_year",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", [_vm._v("Elenco:")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.movie_for_update.star_list,
+                        expression: "movie_for_update.star_list"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "star_list" },
+                    domProps: { value: _vm.movie_for_update.star_list },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.movie_for_update,
+                          "star_list",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", [_vm._v("Classificação Indicativa:")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.movie_for_update.classId,
+                          expression: "movie_for_update.classId"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { name: "classId" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.movie_for_update,
+                            "classId",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "Livre" } }, [
+                        _vm._v("Livre ")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "10" } }, [_vm._v("10 ")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "12" } }, [_vm._v("12 ")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "14" } }, [_vm._v("14 ")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "16" } }, [_vm._v("16 ")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "18" } }, [_vm._v("18 ")])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("label", [_vm._v("Categoria:")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.movie_for_update.category_id,
+                          expression: "movie_for_update.category_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { name: "category" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.movie_for_update,
+                            "category_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    _vm._l(_vm.categories, function(category) {
+                      return _c(
+                        "option",
+                        { domProps: { value: category.id } },
+                        [_vm._v(" " + _vm._s(category.category) + " ")]
+                      )
+                    })
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.updateMovie(_vm.movie_for_update.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Salvar")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -43475,8 +44038,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("select", { staticClass: "form-control", attrs: { name: "" } }, [
-      _c("option", { attrs: { value: "" } })
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+      _vm._v(" "),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Editar Filme")])
     ])
   }
 ]

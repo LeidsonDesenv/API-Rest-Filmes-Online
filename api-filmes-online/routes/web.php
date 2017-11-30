@@ -35,11 +35,11 @@ Route::group(['prefix' => 'movies'], function(){
     Route::get('/name/{name}','MovieController@searchByName');
     Route::get('director/{id}', 'MovieController@searchByDirector');
     Route::get('category/{id}', 'MovieController@searchByCategory');
-    Route::group(['middleware' => 'auth'], function(){
-        Route::post('/', 'MovieController@create');
-        Route::put('/{id}', 'MovieController@update');
-        Route::delete('/{id}', 'MovieController@destroy');
-    });
+
+    Route::post('/', 'MovieController@create');
+    Route::put('/{id}', 'MovieController@update');
+    Route::delete('/{id}', 'MovieController@destroy');
+
 
 });
 
