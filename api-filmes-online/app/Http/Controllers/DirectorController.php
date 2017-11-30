@@ -11,14 +11,14 @@ class DirectorController extends Controller
     public function __construct() {
         $this->director = new Director;
     }
-    
+
     public function allDirectors(){
-         $director =  $this->director->all();        
+         $directors =  $this->director->all();
          //comentando para teste
-        //return response()->json($director);
-         return $director;
+        return response()->json(["directors" => $directors], 200);
+         //return $director;
     }
-    
+
     public function searchById($id){
         $director = $this->director->find($id);
         if(!$director){
@@ -26,8 +26,10 @@ class DirectorController extends Controller
         }
         return response()->json($director);
     }
-    
+
      public function create(Request $request){
+        $this->validate($request, $this->director->rules) ;
+
         $result = $this->director->create([
             'name' =>  $request->name,
             'description' =>  $request->description
@@ -37,7 +39,7 @@ class DirectorController extends Controller
         }
         return response()->json($result, 201);
     }
-    
+
     public function update(Request $request,$id){
         $result = $this->director->find($id);
         if(!$result){
@@ -55,6 +57,6 @@ class DirectorController extends Controller
         $result->delete();
         return response()->json(['message' => 'Operação realizada com sucesso'], 200);
     }
-    
-    
+
+
 }

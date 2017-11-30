@@ -11,7 +11,7 @@ class DirectorTableSeeder extends Seeder
      */
     public function run()
     {
-      /*  App\Director::create([
+       App\Director::create([
             'name' => 'Martin Scorsese',
             'description' => 'Filmes sólidos, duros e que retratam a realidade'
             . ' deturpada. Scorcese tem muitos filmes que fizeram grande sucesso.'
@@ -40,7 +40,7 @@ class DirectorTableSeeder extends Seeder
             'name' => 'Quentin Tarantino',
             'description' => 'Conhecido por inserir elementos de violência e aterrorizantes'
              . ' em seus filmes, com elementos de ação e muita loucura.'
-        ]); */
+        ]); 
           App\Director::create([
             'name' => 'Eric Kripke',
             'description' => 'CEric Kripke (Toledo, 24 de abril de 1974) é um roteirista,'

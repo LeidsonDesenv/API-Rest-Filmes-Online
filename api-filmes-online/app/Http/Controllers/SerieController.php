@@ -53,23 +53,45 @@ class SerieController extends Controller
          return response()->json($result);
     }
     
-    public function searchByDirector($id){                        
-        $movies =  $this->director->find($id)->series;    
-        if(!$movies){
+    public function searchByDirector($id){ 
+        //o Eloquent acha o diretor pelo $id 
+        // depois é possível acessa o método series(){ Director::hasMany('App\Serie'); }        
+        //$series =  $this->director->find($id)->series;    
+        
+        //Na classe Query Builder
+        $series = DB::table('series')
+                 ->where('director_id' , $id)
+                ->join('categories' , 'categories.id', '=' , 'series.category_id')
+                 ->join('directors', 'directors.id', '=', 'series.director_id')
+                 ->select('series.*', 'categories.category', 'directors.name as director')
+                 ->get();
+         
+        if(!$series){
             return response()->json(['message' => 'Itens não encontrados'], 404);
         }
-        return response()->json($movies);
+        return response()->json($series);
     }
     
     public  function searchByCategory($id){
-        $movies = $this->category->find($id)->series;
-        if(!$movies){
+        //$series = $this->category->find($id)->series;
+        
+        //Na classe Query Builder
+        $series = DB::table('series')
+                ->where('category_id', $id)
+                ->join('categories' , 'categories.id', '=' , 'series.category_id')
+                ->join('directors' , 'directors.id', '=' , 'series.director_id')
+                ->select('series.*', 'categories.category', 'directors.name as director')
+                ->get();
+        
+        if(!$series){
             return response()->json(['message' => 'Itens não encontrados'], 404);
         }
-        return response()->json($movies);
+        return response()->json($series);
     }
     
     public function create(Request $request){
+        $this->validate($request, $this->serie->rules);
+        
         $result = $this->serie->create(['name' => $request->name ,
                             'release_year' => $request->year ,                            
                             'classId' => $request->classId,

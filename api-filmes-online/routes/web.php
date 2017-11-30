@@ -9,12 +9,12 @@ Route::get('/', function () {
 Route::group(['prefix' => 'categories'], function(){
     Route::get('/', "CategoryController@allCategories");
     Route::get('/{id}', "CategoryController@searchById");
-    
+
     Route::group(['middleware' => 'auth'], function(){
-        Route::post('/', "CategoryController@create");         
+        Route::post('/', "CategoryController@create");
         Route::put('/{id}',"CategoryController@update" );
-        Route::delete('/{id}', "CategoryController@destroy" );        
-    });    
+        Route::delete('/{id}', "CategoryController@destroy" );
+    });
 });
 
 Route::group(['prefix' => 'directors'], function(){
@@ -26,7 +26,7 @@ Route::group(['prefix' => 'directors'], function(){
         Route::delete('/{id}', 'DirectorController@destroy' );
     });
 });
-    
+
 
 
 Route::group(['prefix' => 'movies'], function(){
@@ -40,7 +40,7 @@ Route::group(['prefix' => 'movies'], function(){
         Route::put('/{id}', 'MovieController@update');
         Route::delete('/{id}', 'MovieController@destroy');
     });
-    
+
 });
 
 Route::group(['prefix' => 'series'], function(){
@@ -71,5 +71,3 @@ Route::get('/updatemovie/{id}', 'Teste\UseMovieController@edit')->middleware('au
 Route::get('/search/{id}', 'Teste\UseMovieController@searchById')->middleware('auth');
 Route::get('/getmovie/{id}', 'Teste\UseMovieController@buscaFilme')->middleware('auth');
 Route::delete('/getmovie/{id}', 'Teste\UseMovieController@delete')->middleware('auth');
-   
-

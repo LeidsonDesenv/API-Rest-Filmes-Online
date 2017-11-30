@@ -13,6 +13,10 @@ class Movie extends Model
                             'category_id',
                             'director_id'];
     
+    public $rules = ['name' => 'required|max:100' ,
+                    'year' => 'max:4',
+                    'star_list' => 'max:500'];
+    
     protected $hidden = ['category_id','director_id' ];
     
     public function directors(){

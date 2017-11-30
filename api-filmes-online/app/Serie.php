@@ -13,4 +13,8 @@ class Serie extends Model
                             'category_id',
                             'director_id'];
      
+     public $rules = ['name' => 'required|max:100',
+                     'year' => 'max:4',
+                     'season' => 'numeric'];
+     
 }

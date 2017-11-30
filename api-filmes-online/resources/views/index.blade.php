@@ -64,9 +64,7 @@
     <input  type="submit" value="cadastrar" class="btn btn-primary"/>
     @endif
 
-    @if(isset($error))
-    <div class="alert alert-danger">   {{$error}} </div>
-    @endif
+    @include('includes.message')
  
 </form>
 </div>
